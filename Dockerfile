@@ -21,4 +21,4 @@ COPY . .
 EXPOSE 7860
 
 # Universal start command (works everywhere)
-CMD ["sh", "-c", "uvicorn app:app --host 0.0.0.0 --port ${PORT:-7860}"]
+CMD ["sh", "-c", "uvicorn api:app --host 0.0.0.0 --port ${PORT:-7860}"]
