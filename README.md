@@ -74,12 +74,29 @@ uvicorn api:app --host 0.0.0.0 --port $PORT
 3. Add `Dockerfile`:
 ```dockerfile
 FROM python:3.11-slim
-RUN apt-get update && apt-get install -y nodejs
+
+# Install Node.js (required for your app)
+RUN apt-get update && \
+    apt-get install -y nodejs npm && \
+    rm -rf /var/lib/apt/lists/*
+
+# Set working directory
 WORKDIR /app
+
+# Copy requirements first (better caching)
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy project files
 COPY . .
-CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]
+
+# Expose port (common default, platforms override automatically)
+EXPOSE 7860
+
+# Universal start command (works everywhere)
+CMD ["sh", "-c", "uvicorn api:app --host 0.0.0.0 --port ${PORT:-7860}"]
 ```
 4. Deploy
 
@@ -93,12 +110,29 @@ CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]
 3. Push code with `Dockerfile`:
 ```dockerfile
 FROM python:3.11-slim
-RUN apt-get update && apt-get install -y nodejs
+
+# Install Node.js (required for your app)
+RUN apt-get update && \
+    apt-get install -y nodejs npm && \
+    rm -rf /var/lib/apt/lists/*
+
+# Set working directory
 WORKDIR /app
+
+# Copy requirements first (better caching)
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy project files
 COPY . .
-CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "7860"]
+
+# Expose port (common default, platforms override automatically)
+EXPOSE 7860
+
+# Universal start command (works everywhere)
+CMD ["sh", "-c", "uvicorn api:app --host 0.0.0.0 --port ${PORT:-7860}"]
 ```
 4. Access at `https://huggingface.co/spaces/USERNAME/SPACE`
 
@@ -109,12 +143,29 @@ CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "7860"]
 ## Dockerfile
 ```dockerfile
 FROM python:3.11-slim
-RUN apt-get update && apt-get install -y nodejs
+
+# Install Node.js (required for your app)
+RUN apt-get update && \
+    apt-get install -y nodejs npm && \
+    rm -rf /var/lib/apt/lists/*
+
+# Set working directory
 WORKDIR /app
+
+# Copy requirements first (better caching)
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy project files
 COPY . .
-CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "7860"]
+
+# Expose port (common default, platforms override automatically)
+EXPOSE 7860
+
+# Universal start command (works everywhere)
+CMD ["sh", "-c", "uvicorn api:app --host 0.0.0.0 --port ${PORT:-7860}"]
 ```
 
 ## 🗒️ Disclaimer
