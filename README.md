@@ -50,9 +50,10 @@ GET /hanime-api?url=https://hanime.tv/videos/hentai/SLUG
 3. Use the provided `Dockerfile`
 
 ### Hugging Face Spaces
-1. Create a new Space → Select Docker SDK
-2. Push code with `Dockerfile`
-3. Access via `https://huggingface.co/spaces/USERNAME/SPACE`
+1. Go to [huggingface.co](https://huggingface.co)
+2. Create a new Space → Select Docker SDK
+3. Push code with `Dockerfile`
+4. Access via `https://huggingface.co/spaces/USERNAME/SPACE`
 
 ## Dockerfile
 ```dockerfile
